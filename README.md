@@ -8,6 +8,4 @@ This project is addressed the projector is not switched off after used, closing 
 
 Please refer to the wiki for hardware setup and explanation on how to use the python code to run the project.
 
-Two python files are used:
-1. motionv2.py 
-2. relayoff.py
+Two python files are used motionv2.py and relayoff.py

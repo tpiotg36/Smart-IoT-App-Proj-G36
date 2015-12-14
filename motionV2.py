@@ -1,6 +1,14 @@
 #!/usr/bin/env python
+# Group 36 (Ng Chee Ming and Lee Jia En)
+# PS: There are AWS rules enabled in AWS IoT Cloud to help to actuate the LED and Buzzer which
+# in turn help to trigger the script, photo taking and emailing.
 
-# Send Grove sensor data periodically to AWS IoT and process actuation commands received.
+# This program is to send the sensor data periodically to AWS IoT.
+# Based on the AWS IoT rules we created, the program will process actuation commands received.
+# If motion detected, LED will flash once and take a photo. This photo will be send to user via email.
+# If no motion detected, LED will flash twice.
+# If the light sensor sensed light from Projector, Buzzer will sound and
+# it will also trigger the relay script to switch off the projector.
 
 import time
 import datetime
@@ -78,8 +86,8 @@ def main():
                         # Comment out the next 2 lines if you're using the Grove Analog Temperature Sensor.
                         #"temperature": grovepi.dht(dht_sensor, 0)[0],  # The first 0 means that the DHT module is DHT11.
                         #"humidity": grovepi.dht(dht_sensor, 0)[1],
-			"motion": grovepi.digitalRead(pir_sensor),	
-			"light": grovepi.analogRead(light),
+                        "motion": grovepi.digitalRead(pir_sensor),
+                        "light": grovepi.analogRead(light),
                         "timestamp": datetime.datetime.now().isoformat()
                     }
                 }
@@ -138,7 +146,7 @@ def actuate(client, attribute, value):
         return
     print("Setting " + attribute + " to " + value + "...")
     if attribute == "led":
-        # We actuate the LED for "on", "off" or "flash1".
+        # We actuate the LED for "Motion Detected", "flash2 means no motion detected".
         if value == "Motion_Detected":
             # Switch on LED.
             grovepi.digitalWrite(led, 1)
@@ -146,12 +154,14 @@ def actuate(client, attribute, value):
             time.sleep(5)
             grovepi.digitalWrite(led,0)
             send_reported_state(client, "led", "off")
+            #Take photo when human motion is detected
             os.system('/usr/bin/fswebcam /home/pi/GrovePi/Software/Python/IMAGE/$(date +%Y%m%d_%H%M).jpg')
+            #Send the photo via email to the user
             os.system('/usr/bin/mpack -s "Motion Detected Room G36" /home/pi/GrovePi/Software/Python/IMAGE/$(date +%Y%m%d_%H%M).jpg cheeming@tp.edu.sg &') 
             time.sleep(1)
             return
         elif value == "flash2":
-            # Switch on LED, wait 1 second, switch it off.
+            # Switch on LED, wait .5 second, switch it off. Flashing twice to indicate no motion detected
             grovepi.digitalWrite(led, 1)
             send_reported_state(client, "led", "on")
             time.sleep(.5)
@@ -168,7 +178,8 @@ def actuate(client, attribute, value):
             send_reported_state(client, "led", "off")
             time.sleep(.5)
             return
-    # We actuate the buzzer for "on" or "off"
+    # We actuate the buzzer for "on" or "off" when light sensor sensed the projector is switched on.
+    # It will trigger the relay python script to switch off the projector.
     if attribute == "buzzer":
         if value == "Projector_On":
             # Switch on Buzzer.

@@ -1,4 +1,7 @@
-#!/usr/bin/python  
+#!/usr/bin/python
+# Group 36 (Ng Chee Ming and Lee Jia En)
+# Trigger from an AWS rule with the actuating of buzzer.
+
 import RPi.GPIO as GPIO  
 from time import time  
   

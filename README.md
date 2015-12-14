@@ -4,8 +4,8 @@ For Smart IoT Application Project Submission
 This project is created for project submission and all copyright reserved to the group and people behind this project. 
 If there's any similar projects or ideas, we apologize and declare that we do not copy anyone's idea or project.
 
-This project is addressed the projector is not switched off after used, closing labs at night and emergency evacuate issues.
+This project helps technical staffs during evening time when the technical staffs are closing the laboratories or tutorial rooms, they will find that a handful of projectors in the laboratories or tutorial rooms are left switched on. Between the times the projectors were left switched on to the time where someone switched it off or projectors go to sleep mode, it actually consuming quite a number lamp hours and electricity or energy. At times of emergency like fire outbreak, staffs are required to perform a manual and visual check on all the laboratories and tutorial rooms to ensure everyone is evacuated. But at a certain time, there might be some mischievous students may be hiding somewhere and even return back to the rooms/laboratories without anyone noticing.  
 
 Please refer to the wiki for hardware setup and explanation on how to use the python code to run the project.
 
-Two python files are used motionv2.py and relayoff.py
+Please download the python files that are required for this project to run motionv2.py and relayoff.py. 

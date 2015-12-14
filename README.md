@@ -8,4 +8,16 @@ This project helps technical staffs during evening time when the technical staff
 
 Please refer to the wiki for hardware setup and explanation on how to use the python code to run the project.
 
-Please download the python files that are required for this project to run motionv2.py and relayoff.py. 
+Please download the python files that are required for this project to run motionV2.py and relayoff.py. 
+
+===========================================================================
+motionV2.py file
+===========================================================================
+PS: There are AWS rules enabled in AWS IoT Cloud to help to actuate the LED and Buzzer which in turn help to trigger the script, photo taking and emailing.
+
+This file is the main program which will send the sensor data periodically to AWS IoT. Based on the AWS IoT rules we created, the program will process actuation commands received. If motion detected, LED will flash once and take a photo. This photo will be send to user via email otherwise if there's no motion detected, LED will flash twice. When the light sensor sensed light from Projector, the Buzzer will sound and it will also trigger the relay script to switch off the projector.
+
+===========================================================================
+relayoff.py file
+===========================================================================
+This file will trigger by an AWS rule with act of actuating of buzzer.

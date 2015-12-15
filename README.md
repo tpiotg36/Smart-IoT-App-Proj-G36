@@ -1,5 +1,4 @@
-# Group 36
-For Smart IoT Application Project Submission
+# For Smart IoT Application Project Submission - Group 36
 
 This project is created for project submission and all copyright reserved to the group and people behind this project. 
 If there's any similar projects or ideas, we apologize and declare that we do not copy anyone's idea or project.
